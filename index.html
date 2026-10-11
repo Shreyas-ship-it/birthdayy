@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffe4ef">
+<title>A Little Surprise for You 💗</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #d95791;
+    --pink-dark: #b83f78;
+    --purple: #9471c9;
+    --text: #65415b;
+    --card: #fffdfd;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe0ec, #e7ddff, #fff0d9);
+    color: var(--text);
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+header {
+    padding: 24px 16px 10px;
+}
+
+header h1 {
+    color: var(--pink-dark);
+    font-size: clamp(25px, 6vw, 38px);
+    margin: 8px 0;
+}
+
+header p {
+    line-height: 1.6;
+    margin: 8px auto;
+}
+
+.slides {
+    width: 100%;
+    padding: 10px 14px;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    max-width: 850px;
+    margin: 8px auto 20px;
+    padding: clamp(16px, 4vw, 30px);
+    background: rgba(255, 255, 255, 0.94);
+    border: 2px solid white;
+    border-radius: 24px;
+    box-shadow: 0 8px 25px rgba(145, 87, 124, 0.14);
+    animation: appear 0.3s ease;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--pink-dark);
+    font-size: clamp(21px, 5vw, 29px);
+    line-height: 1.35;
+    margin: 8px 0 14px;
+}
+
+p {
+    line-height: 1.7;
+}
+
+.heart {
+    font-size: 40px;
+    margin: 8px;
+}
+
+.message {
+    max-width: 680px;
+    margin: 20px auto;
+    text-align: left;
+    font-size: clamp(15px, 3.8vw, 17px);
+    line-height: 1.9;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.photo {
+    min-width: 0;
+    padding: 9px;
+    background: #fff4fa;
+    border: 1px solid #f3d4e5;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.photo img {
+    display: block;
+    width: 100%;
+    height: clamp(180px, 32vw, 320px);
+    object-fit: contain;
+    background: #f8eaf2;
+    border-radius: 10px;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.caption {
+    margin: 10px 3px 4px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.photo-error {
+    display: none;
+    min-height: 120px;
+    padding: 24px 10px;
+    background: #fff0f5;
+    color: #9c3567;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.quiz-question {
+    margin: 18px 0;
+    padding: 14px;
+    background: #fff3f8;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.quiz-question p {
+    margin-top: 0;
+    font-weight: bold;
+}
+
+.quiz-question label {
+    display: block;
+    padding: 9px 4px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.quiz-question input {
+    accent-color: var(--pink);
+    margin-right: 7px;
+}
+
+button {
+    min-height: 44px;
+    max-width: 100%;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 19px;
+    margin: 6px 4px;
+    background: var(--pink);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+button:hover {
+    background: var(--pink-dark);
+}
+
+button:focus-visible {
+    outline: 3px solid #75416c;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.secondary {
+    background: var(--purple);
+}
+
+.secondary:hover {
+    background: #7955b8;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 5px 12px 22px;
+}
+
+#slideCounter {
+    font-size: 14px;
+    min-width: 75px;
+}
+
+#quizResult {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.7;
+}
+
+footer {
+    padding: 12px 15px 24px;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding-top: 18px;
+    }
+
+    .slides {
+        padding: 6px 10px;
+    }
+
+    .slide {
+        border-radius: 18px;
+        padding: 17px 14px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .photo {
+        padding: 8px;
+    }
+
+    .photo img {
+        height: auto;
+        max-height: 65vh;
+        min-height: 180px;
+        aspect-ratio: 4 / 3;
+        object-fit: contain;
+    }
+
+    .message {
+        line-height: 1.8;
+    }
+
+    .navigation {
+        gap: 5px;
+    }
+
+    .navigation button {
+        padding: 11px 14px;
+        margin: 3px 1px;
+    }
+
+    .quiz-question {
+        padding: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>For My Favourite Girl 💗</h1>
+    <p>A little website made with love, just for you 🌷</p>
+</header>
+
+<main class="slides">
+
+    <!-- SLIDE 1: MESSAGE -->
+    <section class="slide active" id="slide1">
+        <div class="heart">💖</div>
+        <h2>A Little Message for You</h2>
+
+        <div class="message">
+            Hey, bestie! 🥹💕
+
+            <br><br>
+
+            I made this little corner of the internet especially for you.
+            You are such a wonderful person, and I'm really happy to have
+            you in my life.
+
+            <br><br>
+
+            Thank you for the laughs, the conversations, the silly moments,
+            and all the memories we've made together.
+
+            <br><br>
+
+            No matter how busy life gets or how much things change,
+            I hope you always remember how special you are.
+
+            <br><br>
+
+            You deserve happiness, love, success, and all the beautiful
+            things this world has to offer.
+
+            <br><br>
+
+            Here's to more memories, more laughter, and a friendship
+            full of lovely little moments. 🌸
+
+            <br><br>
+
+            <strong>I'm so glad you're my friend. Love you, bestie! 💗</strong>
+        </div>
+
+        <p>Ready for your little surprise? ✨</p>
+    </section>
+
+
+    <!-- SLIDE 2: PHOTO GALLERY -->
+    <section class="slide" id="slide2">
+        <h2>Our Little Memory Lane 📸</h2>
+        <p>Every picture holds a little piece of a memory. 💕</p>
+
+        <div class="gallery">
+
+            <div class="photo">
+                <img src="photos/memory1.jpeg"
+                     alt="Our first special memory"
+                     loading="eager"
+                     onerror="showPhotoError(this)">
+                <div class="photo-error">
+                    Couldn't load memory1.jpeg.
+                    Check the filename and photos folder.
+                </div>
+                <p class="caption">A memory to treasure 💗</p>
+            </div>
+
+            <div class="photo">
+                <img src="photos/memory2.jpeg"
+                     alt="A happy moment together"
+                     loading="lazy"
+                     onerror="showPhotoError(this)">
+                <div class="photo-error">
+                    Couldn't load memory2.jpeg.
+                    Check the filename and photos folder.
+                </div>
+                <p class="caption">Smiles that mean everything 🌷</p>
+            </div>
+
+            <div class="photo">
+                <img src="photos/memory3.jpeg"
+                     alt="A favourite friendship memory"
+                     loading="lazy"
+                     onerror="showPhotoError(this)">
+                <div class="photo-error">
+                    Couldn't load memory3.jpeg.
+                    Check the filename and photos folder.
+                </div>
+                <p class="caption">One of our lovely moments 🦋</p>
+            </div>
+
+            <div class="photo">
+                <img src="photos/memory4.jpeg"
+                     alt="Another special friendship memory"
+                     loading="lazy"
+                     onerror="showPhotoError(this)">
+                <div class="photo-error">
+                    Couldn't load memory4.jpeg.
+                    Check the filename and photos folder.
+                </div>
+                <p class="caption">More memories, more happiness ✨</p>
+            </div>
+
+        </div>
+
+        <p>I'm grateful for every moment and every memory. 🫶</p>
+    </section>
+
+
+    <!-- SLIDE 3: FRIENDSHIP QUIZ -->
+    <section class="slide" id="slide3">
+        <div class="heart">🎀</div>
+        <h2>How Well Do You Know Us?</h2>
+        <p>Let's play a tiny friendship quiz! 💕</p>
+
+        <form id="friendQuiz">
+
+            <div class="quiz-question">
+                <p>1. What's the best part of our friendship?</p>
+                <label><input type="radio" name="q1" value="a" required>
+                    The laughs and silly moments</label>
+                <label><input type="radio" name="q1" value="b">
+                    Competing over everything</label>
+                <label><input type="radio" name="q1" value="c">
+                    Never talking to each other</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>2. What makes a friendship special?</p>
+                <label><input type="radio" name="q2" value="a" required>
+                    Expensive gifts only</label>
+                <label><input type="radio" name="q2" value="b">
+                    Trust, care, and understanding</label>
+                <label><input type="radio" name="q2" value="c">
+                    Always agreeing about everything</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>3. What should we make more of?</p>
+                <label><input type="radio" name="q3" value="a" required>
+                    Unnecessary drama</label>
+                <label><input type="radio" name="q3" value="b">
+                    Awkward silences</label>
+                <label><input type="radio" name="q3" value="c">
+                    Beautiful memories together</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>4. What should you never forget?</p>
+                <label><input type="radio" name="q4" value="a" required>
+                    That you're special and appreciated</label>
+                <label><input type="radio" name="q4" value="b">
+                    Every tiny mistake</label>
+                <label><input type="radio" name="q4" value="c">
+                    To never have fun</label>
+            </div>
+
+            <div class="quiz-question">
+                <p>5. What's the most important friendship ingredient?</p>
+                <label><input type="radio" name="q5" value="a" required>
+                    Being perfect all the time</label>
+                <label><input type="radio" name="q5" value="b">
+                    Kindness and being there for each other</label>
+                <label><input type="radio" name="q5" value="c">
+                    Keeping score of every favour</label>
+            </div>
+
+            <button type="submit">See My Result 💖</button>
+            <button type="reset" class="secondary">Try Again</button>
+        </form>
+
+        <p id="quizResult" aria-live="polite"></p>
+
+        <div class="heart">🌸💗🌸</div>
+        <h2>One Last Thing...</h2>
+
+        <p>
+            Thank you for being you.<br>
+            This little website is a reminder of how much
+            our friendship means to me. 💕
+        </p>
+
+        <strong>Stay happy, stay amazing, and never stop smiling!</strong>
+    </section>
+
+</main>
+
+<nav class="navigation" aria-label="Website navigation">
+    <button type="button" id="prevButton"
+            class="secondary" onclick="changeSlide(-1)">
+        ← Previous
+    </button>
+
+    <span id="slideCounter" aria-live="polite">Slide 1 of 3</span>
+
+    <button type="button" id="nextButton" onclick="changeSlide(1)">
+        Next →
+    </button>
+</nav>
+
+<footer>Made with love, just for you 💗</footer>
+
+<script>
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+const slideCounter = document.getElementById("slideCounter");
+
+function showSlide(index) {
+    currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+
+    slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === currentSlide);
+    });
+
+    slideCounter.textContent =
+        `Slide ${currentSlide + 1} of ${slides.length}`;
+
+    prevButton.disabled = currentSlide === 0;
+    nextButton.disabled = currentSlide === slides.length - 1;
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+function showPhotoError(img) {
+    img.style.display = "none";
+
+    const errorMessage = img.nextElementSibling;
+    if (errorMessage) {
+        errorMessage.style.display = "block";
+    }
+}
+
+document.getElementById("friendQuiz").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const answers = {
+        q1: "a",
+        q2: "b",
+        q3: "c",
+        q4: "a",
+        q5: "b"
+    };
+
+    const formData = new FormData(this);
+    let score = 0;
+
+    for (const question in answers) {
+        if (formData.get(question) === answers[question]) {
+            score++;
+        }
+    }
+
+    const result = document.getElementById("quizResult");
+
+    if (score === 5) {
+        result.textContent =
+            "5/5! Perfect score! Friendship superstar! 💖🏆";
+    } else if (score >= 3) {
+        result.textContent =
+            `${score}/5! Lovely score! Here's to our friendship! 💕`;
+    } else {
+        result.textContent =
+            `${score}/5! Let's make more memories together! 🌷`;
+    }
+});
+
+document.getElementById("friendQuiz").addEventListener("reset", function() {
+    document.getElementById("quizResult").textContent = "";
+});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
